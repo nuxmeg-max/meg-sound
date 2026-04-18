@@ -445,7 +445,7 @@ async function playTrack(idx) {
     audioEl.src = mp3;
     await audioEl.play();
     isPlaying = true;
-    playPauseBtn.textContent = '⏸';
+    playPauseBtn.textContent = '❙❙';
     playPauseBtn.disabled    = false;
     setStatus('playing');
   } catch (e) {
@@ -519,7 +519,7 @@ playPauseBtn.addEventListener('click', () => {
   } else {
     audioEl.play();
     isPlaying = true;
-    playPauseBtn.textContent = '⏸';
+    playPauseBtn.textContent = '❙❙';
     setStatus('playing');
   }
 });

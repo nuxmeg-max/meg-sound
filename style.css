@@ -460,19 +460,16 @@ main {
   border-top: 1px solid var(--border);
   z-index: 200;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Penting: jangan overflow hidden agar tidak terpotong */
 }
-.player.hidden { transform: translateY(100%); }
-
-.player-inner {
-  padding: 0 20px;
-  display: grid;
-  grid-template-rows: 4px 1fr;
-}
+.player.hidden { transform: translateY(110%); }
 
 .progress-track {
   height: 4px;
   background: var(--progress-bg);
   cursor: pointer;
+  width: 100%;
+  flex-shrink: 0;
 }
 .progress-fill {
   height: 100%;
@@ -485,13 +482,17 @@ main {
 .player-main {
   display: flex;
   align-items: center;
-  padding: 10px 0 12px;
-  gap: 12px;
+  padding: 10px 16px 14px;
+  gap: 10px;
+  /* Pastikan tidak overflow */
+  min-height: 64px;
+  box-sizing: border-box;
 }
 
 .player-thumb {
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
   object-fit: cover;
   flex-shrink: 0;
   filter: grayscale(100%);
@@ -500,9 +501,10 @@ main {
 .player-info {
   flex: 1;
   min-width: 0;
+  overflow: hidden;
 }
 .player-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
@@ -513,18 +515,22 @@ main {
   font-family: 'Space Mono', monospace;
   font-size: 9px;
   color: var(--text2);
-  margin-top: 3px;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* LIKE BUTTON IN PLAYER */
 .like-btn {
   width: 34px;
   height: 34px;
+  min-width: 34px;
   border: 1px solid var(--border);
   background: none;
   color: var(--text3);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -544,6 +550,7 @@ main {
 .ctrl-btn {
   width: 34px;
   height: 34px;
+  min-width: 34px;
   border: 1px solid var(--border);
   background: none;
   color: var(--text);
@@ -551,7 +558,7 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 13px;
   transition: background 0.15s;
   flex-shrink: 0;
 }
@@ -563,6 +570,7 @@ main {
   border-color: var(--accent);
   width: 40px;
   height: 40px;
+  min-width: 40px;
   font-size: 14px;
 }
 .ctrl-btn.play-main:hover { opacity: 0.85; background: var(--accent); }
@@ -572,6 +580,7 @@ main {
   font-size: 9px;
   color: var(--text2);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* =============================================
@@ -610,12 +619,26 @@ main {
    RESPONSIVE
    ============================================= */
 @media (max-width: 560px) {
-  header { padding: 12px 16px; gap: 8px; }
-  .search-section { padding: 18px 16px 0; }
-  main { padding: 18px 16px 140px; }
+  header { padding: 12px 14px; gap: 6px; }
+  .search-section { padding: 16px 14px 0; }
+  main { padding: 16px 14px 160px; }
+
   .results-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .player-inner { padding: 0 12px; }
+
+  /* Player mobile: compact */
+  .player-main { padding: 8px 12px 12px; gap: 8px; }
+  .player-thumb { width: 36px; height: 36px; min-width: 36px; }
   .player-time { display: none; }
+  .player-title { font-size: 11px; }
   .status-tag { display: none; }
-  .nav-tab { padding: 4px 8px; font-size: 8px; }
+
+  /* Nav tabs: icon only on mobile */
+  .nav-tab { padding: 5px 8px; font-size: 0; }
+  .nav-tab i { font-size: 13px; }
+
+  .ctrl-btn { width: 30px; height: 30px; min-width: 30px; font-size: 11px; }
+  .ctrl-btn.play-main { width: 36px; height: 36px; min-width: 36px; font-size: 12px; }
+  .like-btn { width: 30px; height: 30px; min-width: 30px; font-size: 12px; }
+
+  .user-badge { max-width: 70px; font-size: 8px; }
 }

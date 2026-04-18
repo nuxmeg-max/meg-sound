@@ -201,7 +201,7 @@ function enterApp() {
   nameModal.style.display = 'none';
   appWrapper.style.display = 'grid';
   userBadge.textContent = userName.toUpperCase();
-  doSearch('music');
+  doSearch('music galau');
 }
 
 nameSubmit.addEventListener('click', async () => {
